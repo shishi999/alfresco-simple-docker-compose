@@ -113,9 +113,8 @@ services:
     ports:
       - 8180:8080
       - 9898:8888
-    volumes:
-      # - {additional jar name}:/usr/local/tomcat/webapps/share/WEB-INF/lib/{additional jar name}
-      - ./audit-log-browser-share-2.2.1.jar:/usr/local/tomcat/webapps/share/WEB-INF/lib/audit-log-browser-share-2.2.1.jar
+    # volumes:
+    # - {additional jar name}:/usr/local/tomcat/webapps/share/WEB-INF/lib/{additional jar name}
   postgres:
     image: postgres:14.4
     mem_limit: 512m
