@@ -7,12 +7,16 @@ create_volumes(){
     docker volume create ${RICKSOFT_TEST_ACS_IDENTIFIER}-acs
     docker volume create ${RICKSOFT_TEST_ACS_IDENTIFIER}-ass
     docker volume create ${RICKSOFT_TEST_ACS_IDENTIFIER}-db
+    docker volume create ${RICKSOFT_TEST_ACS_IDENTIFIER}-jira
+    docker volume create ${RICKSOFT_TEST_ACS_IDENTIFIER}-confluence
 }
 
 clean_volumes(){
     docker volume rm ${RICKSOFT_TEST_ACS_IDENTIFIER}-acs
     docker volume rm ${RICKSOFT_TEST_ACS_IDENTIFIER}-ass
     docker volume rm ${RICKSOFT_TEST_ACS_IDENTIFIER}-db
+    docker volume rm ${RICKSOFT_TEST_ACS_IDENTIFIER}-jira
+    docker volume rm ${RICKSOFT_TEST_ACS_IDENTIFIER}-confluence
 }
 
 case "$2" in
