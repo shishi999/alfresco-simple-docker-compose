@@ -1,5 +1,3 @@
-version: "3.4"
-
 services:
 # ========================
 # Alfresco products
@@ -30,9 +28,9 @@ services:
         -Dindex.subsystem.name=solr6
         -Dshare.host=127.0.0.1
         -Dshare.port=8080
-        -Dalfresco.host=4.189.253.13
+        -Dalfresco.host=${PUBLIC_HOSTNAME}
         -Dalfresco.port=8080
-        -Daos.baseUrlOverwrite=http://4.189.253.13:8080/alfresco/aos
+        -Daos.baseUrlOverwrite=http://${PUBLIC_HOSTNAME}:8080/alfresco/aos
         -Dmessaging.broker.url="failover:(nio://activemq:61616)?timeout=3000&jms.useCompression=true"
         -Ddeployment.method=DOCKER_COMPOSE
         -Dtransform.service.enabled=true
@@ -47,7 +45,7 @@ services:
         - CMD
         - curl
         - -f
-        - http://4.189.253.13:8080/alfresco/api/-default-/public/alfresco/versions/1/probes/-ready-
+        - http://${PUBLIC_HOSTNAME}:8080/alfresco/api/-default-/public/alfresco/versions/1/probes/-ready-
       interval: 30s
       timeout: 3s
       retries: 3
@@ -64,7 +62,7 @@ services:
       JAVA_OPTS: >-
         -XX:MinRAMPercentage=50
         -XX:MaxRAMPercentage=80
-        -Dalfresco.host=4.189.253.13
+        -Dalfresco.host=${PUBLIC_HOSTNAME}
         -Dalfresco.port=8080
         -Dalfresco.context=alfresco
         -Dalfresco.protocol=http
@@ -157,10 +155,9 @@ services:
 # Atlassian products
 # ========================
   jira:
-    container_name: jira
     image: atlassian/jira-software:9.12.8
     environment:
-      ATL_PROXY_NAME: 4.189.253.13
+      ATL_PROXY_NAME: ${PUBLIC_HOSTNAME}
       ATL_PROXY_PORT: 8080
       ATL_TOMCAT_SCHEME: http
       ATL_TOMCAT_CONTEXTPATH: jira
@@ -177,7 +174,7 @@ services:
     volumes:
       - confluence-volume:/var/atlassian/application-data/confluence
     environment:
-      ATL_PROXY_NAME: 4.189.253.13
+      ATL_PROXY_NAME: ${PUBLIC_HOSTNAME}
       ATL_PROXY_PORT: 8080
       ATL_TOMCAT_SCHEME: http
       ATL_TOMCAT_CONTEXTPATH: wiki

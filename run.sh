@@ -3,6 +3,13 @@
 # Load env file
 . $1
 
+# Check public hostname
+if [ -z "${PUBLIC_HOSTNAME}" ]; then
+        echo "PUBLIC_HOSTNAME is not set."
+        export PUBLIC_HOSTNAME=`curl -s ifconfig.me`
+	echo "$PUBLIC_HOSTNAME is set."
+fi
+
 create_volumes(){
     docker volume create ${RICKSOFT_TEST_ACS_IDENTIFIER}-acs
     docker volume create ${RICKSOFT_TEST_ACS_IDENTIFIER}-ass
@@ -31,7 +38,13 @@ case "$2" in
     clean)
         clean_volumes
         ;;
+    logs)
+	docker compose --env-file $1 logs -f
+	;;
+    convert)
+	docker compose --env-file $1 convert
+	;;
     *)
-    echo "./run.sh run {env file name} {up|down|clean}"
+    echo "./run.sh run {env file name} {up|down|clean|logs}"
 esac
 
